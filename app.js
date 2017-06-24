@@ -8,18 +8,16 @@ var session = require('express-session');
 
 var passport = require('passport');
 var localLogin = require('./middlewares/auth/local-passport');
-var authrequired = require('./middlewares/auth/authenticateRequired');
-
-
-passport.use('local',localLogin);
+var loginRequired = require('./middlewares/auth/authenticateRequired');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var guests = require('./routes/guests');
 
 //connect to database
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat');
-// mongoose.connect('localhost:27017/node_chat');
+// mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat');
+mongoose.connect('localhost:27017/node_chat');
 
 var app = express();
 
@@ -40,8 +38,11 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch' }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+
+
 app.use('/', index);
 app.use('/users', users);
+app.use('/guests',loginRequired,guests);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

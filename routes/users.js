@@ -30,18 +30,26 @@ router.post('/register', function(req, res, next) {
 
 //login
 router.post('/login',function(req, res, next){
-    return passport.authenticate('local',function(err){
+    passport.authenticate('local',function(err,user){
       if (err) {
-        return res.status(400).json({
+        res.status(400).json({
           success: false,
           message: 'Could not verify credentials'
         });
       };
-      return res.status(200).json({
-        success: true,
-        message: 'Successfully logged in!'
+      req.login(user,function(err){
+        if(err) {
+          res.status(400).json({
+          success: false,
+          message: 'Could not verify credentials'
+        });
+        }
+        res.status(200).json({
+          success: true,
+          message: 'Successfully logged in!',
+          user:user        
+        });
       });
-
     })(req,res,next);
 });
 module.exports = router;

@@ -15,14 +15,14 @@ var passport = require('passport');
 //     jwtFromRequest: ExtractJwt.fromAuthHeader()
 // };
 
-module.exports = new PassportLocalStrategy({
+passport.use(new PassportLocalStrategy({
     usernameField:"email",
     passowrdField:"password",
     session:true,
     passReqToCallback:true
 },function(req,email,password,done)
 {
- return Users.findOne({email:email},
+ Users.findOne({email:email},
     function(err,user){
         if(err){
             return done(err);
@@ -33,7 +33,7 @@ module.exports = new PassportLocalStrategy({
             return done(err);
         }
 
-        return user.comparePassword(password,(err,isMatched)=>{
+        user.comparePassword(password,function(err,isMatched){
             if(err) return done(err);
             if(!isMatched){
                 var error = new Error('Incorrect email or password');
@@ -41,9 +41,9 @@ module.exports = new PassportLocalStrategy({
                 return done(error);
             }
 
-            const payload = {
-                sub: user._id
-            };
+            // const payload = {
+            //     sub: user._id
+            // };
 
             // create a token string
             // const token = jwt.sign(payload, config.jwtSecret);
@@ -51,8 +51,20 @@ module.exports = new PassportLocalStrategy({
             //     email: user.email
             // };
 
-            return done(null);
+            return done(null,user);
         });
     });
+}));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
+
+passport.deserializeUser(function(id, done) {
+  Users.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+module.exports = passport;
 
