@@ -10,8 +10,8 @@ var users = require('./routes/users');
 
 //connect to database
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat');
-mongoose.connect('localhost:27017/node_chat');
+mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat');
+// mongoose.connect('localhost:27017/node_chat');
 
 var app = express();
 
