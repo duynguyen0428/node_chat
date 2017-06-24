@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+//require passport 
+var passport = require('passport');
+
 // User service
 var userService = require('../services/users-service');
 
@@ -23,5 +26,22 @@ router.post('/register', function(req, res, next) {
         res.status(201).json({success:"successfully create user"});
     });
 
+});
+
+//login
+router.post('/login',function(req, res, next){
+    return passport.authenticate('local',function(err){
+      if (err) {
+        return res.status(400).json({
+          success: false,
+          message: 'Could not verify credentials'
+        });
+      };
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully logged in!'
+      });
+
+    })(req,res,next);
 });
 module.exports = router;
