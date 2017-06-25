@@ -26,11 +26,11 @@ module.exports.removeGuest = function(fname,lname,relationship,side,next){
     });
 };
 
-module.exports.getAllGuests = function(){
-    Guests.find({},function(err,allguests){
-        if(err) next(err);
-        next(null,allguests);
-    });
+module.exports.getAllGuests = function(next){
+    Guests.find({})
+          .exec(function(err,allguests){
+            next(err,allguests);
+        });
 };
 
 module.exports.updateGuest = function(){

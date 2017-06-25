@@ -5,10 +5,12 @@ var GuestService = require('../services/guests-service');
 
 router.get('/',function(req,res,next){
     GuestService.getAllGuests(function(err,allguests){
-        if(err){
-            res.status(400).json(err);
-        }
-        res.status(200).json(allguests);
+            // console.log(allguests,err);
+            if(err){
+                return res.status(400).json(err);
+            }else{
+                return res.status(200).json({Guests:allguests});
+            }
     });
 });
 
@@ -24,7 +26,7 @@ router.post('/add',function(req,res,next){
         {
            return res.status(401).json(err); 
         }
-        return res.status(201).json();
+        return res.status(201).json({message:"Successfully add guest"});
     });
 
 });
@@ -41,7 +43,7 @@ router.post('/remove',function(req,res,next){
         {
            return res.status(401).json(err) ;
         }
-        return res.status(200).json();
+        return res.status(200).json(guest);
     });
 });
 

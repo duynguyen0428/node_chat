@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var localLogin = require('./middlewares/auth/local-passport');
 var loginRequired = require('./middlewares/auth/authenticateRequired');
+localLogin();
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -16,8 +17,8 @@ var guests = require('./routes/guests');
 
 //connect to database
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat');
-// mongoose.connect('localhost:27017/node_chat');
+// mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat');
+mongoose.connect('localhost:27017/node_chat');
 
 var app = express();
 
@@ -34,7 +35,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' }));
+app.use(session({     
+  secret: 'getting hungry',
+  saveUninitialized: false,
+  resave: false 
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 

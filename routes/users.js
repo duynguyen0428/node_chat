@@ -7,9 +7,13 @@ var passport = require('passport');
 // User service
 var userService = require('../services/users-service');
 
+//Use jsonwebtoken
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
+
+const SECRECT_KEY = "I'm not going to tell you this";
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('login page');
 });
 
 
@@ -32,24 +36,34 @@ router.post('/register', function(req, res, next) {
 router.post('/login',function(req, res, next){
     passport.authenticate('local',function(err,user){
       if (err) {
-        res.status(400).json({
+        return res.status(400).json({
           success: false,
           message: 'Could not verify credentials'
         });
-      };
+      }
+      else{
       req.login(user,function(err){
         if(err) {
-          res.status(400).json({
-          success: false,
-          message: 'Could not verify credentials'
-        });
+            return res.status(400).json({
+            success: false,
+            message: 'Could not verify credentials'
+          });
         }
-        res.status(200).json({
+        var token = jwt.sign(user,SECRECT_KEY,{expiresIn: 86400});
+
+        return res.header({auth:token}).status(200).json({
           success: true,
           message: 'Successfully logged in!',
           user:user        
         });
       });
-    })(req,res,next);
+    }})(req,res,next);
 });
+
+//logout
+router.post('/logout',function(req, res, next){
+  req.logOut();
+  res.redirect('/');
+});
+
 module.exports = router;
