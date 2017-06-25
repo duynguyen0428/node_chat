@@ -23,7 +23,7 @@ mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/n
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './client/app'));
 app.set('view engine', 'ejs');
 app.engine('html',require('ejs').renderFile);
 
