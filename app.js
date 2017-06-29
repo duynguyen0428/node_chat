@@ -10,7 +10,7 @@ var app = express();
 //connect to database
 var mongoose = require('mongoose');
 
-mongoose.connect(require('./config/conf').dbURI);
+mongoose.connect('mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat');
 
 
 // connect to development database or production database
