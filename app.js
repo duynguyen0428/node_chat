@@ -10,16 +10,19 @@ var app = express();
 //connect to database
 var mongoose = require('mongoose');
 
+mongoose.connect(require('./config/conf').dbURI);
+
+
 // connect to development database or production database
-switch (app.get('env')) {
-  case 'development':
-    mongoose.connect(require('./config/conf').devDBURI);
-    break;
-  case 'production':
-    mongoose.connect(require('./config/conf').dbURI);
-    break;
-  default: throw new Error('Unknown execution environment: ' + app.get('env'));
-}
+// switch (app.get('env')) {
+//   case 'development':
+//     mongoose.connect(require('./config/conf').devDBURI);
+//     break;
+//   case 'production':
+//     mongoose.connect(require('./config/conf').dbURI);
+//     break;
+//   default: throw new Error('Unknown execution environment: ' + app.get('env'));
+// }
 
 // view engine setup
 app.set('views', path.join(__dirname, './client/app'));
