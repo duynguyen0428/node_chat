@@ -6,6 +6,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var forms_1 = require("@angular/forms");
+var signup_signin_service_1 = require("./services/signup-signin.service");
 var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
@@ -17,7 +19,7 @@ AppComponent = __decorate([
         moduleId: module.id,
         selector: 'my-app',
         templateUrl: 'app.component.html',
-        providers: []
+        providers: [signup_signin_service_1.SignUpSignIn, forms_1.FormBuilder]
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

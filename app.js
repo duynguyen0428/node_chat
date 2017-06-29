@@ -26,7 +26,18 @@ app.set('views', path.join(__dirname, './client/app'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-require('./middlewares/utils/utils')(app,express);
+require('./middlewares/utils/utils')(app, express);
+
+// var index = require('./index');
+// var users = require('./routes/users');
+// var guests = require('./guests');
+
+// var loginRequired = require('../middlewares/auth/authenticateRequired');
+
+// app.use('/', index);
+// app.use('/users', users);
+// app.use('/guests', loginRequired, guests);
+
 
 require('./routes/routes')(app);
 
@@ -45,7 +56,8 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  console.log(err);
+  // res.render('error');
 });
 
 module.exports = app;

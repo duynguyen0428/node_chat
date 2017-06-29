@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   declarations: [

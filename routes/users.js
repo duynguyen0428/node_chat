@@ -22,7 +22,7 @@ router.post('/register', function(req, res, next) {
     var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;
-
+    console.log(username);
     userService.register(username,email,password,function(err){
         if(err){
           res.status(400).json(err);

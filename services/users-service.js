@@ -11,7 +11,7 @@ module.exports.register = function(username,email,password,next){
         email : email,
         password : password
     });
-
+    console.log(newUser);
     newUser.save(function(err){
         if(err){
             next(err);

@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Rx_1 = require("rxjs/Rx");
 var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var RegisterService = (function () {
@@ -23,22 +22,7 @@ var RegisterService = (function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
         return this._http.post(this.registerURL, {}, options)
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError);
-    };
-    RegisterService.prototype.handleError = function (error) {
-        // In a real world app, you might use a remote logging infrastructure
-        var errMsg;
-        if (error instanceof Response) {
-            var body = error.json() || '';
-            var err = body.error || JSON.stringify(body);
-            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
-        }
-        else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return Rx_1.Observable.throw(errMsg);
+            .map(function (response) { return response.json(); });
     };
     return RegisterService;
 }());
