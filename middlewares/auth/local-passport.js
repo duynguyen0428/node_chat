@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function() {
+module.exports.initialize = function() {
     var path = require('path');
     var passport = require('passport');
     var passportLocal = require('passport-local');    

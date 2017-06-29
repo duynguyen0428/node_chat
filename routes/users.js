@@ -10,7 +10,7 @@ var userService = require('../services/users-service');
 //Use jsonwebtoken
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
-const SECRECT_KEY = "I'm not going to tell you this";
+const SECRECT_KEY = require('../config/conf').sessionSECRECT;
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('login page');
@@ -42,6 +42,7 @@ router.post('/login',function(req, res, next){
         });
       }
       else{
+        
       req.login(user,function(err){
         if(err) {
             return res.status(400).json({
