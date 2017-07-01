@@ -18,9 +18,14 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a [routerLink]="['login']">Login</a></li>
+                <ul class="nav navbar-nav navbar-right" *ngIf="!isLoggedIn">
+                    <li><a [routerLink]="['login']">Login </a></li>
                     <li><a [routerLink]="['register']">Register</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right" *ngIf="isLoggedIn">
+                    <li><a>{{CurrentLoggedInUser}}</a></li>
+                    <li><a class="btn" (click)="logout()">Log Out </a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

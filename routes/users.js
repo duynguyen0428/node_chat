@@ -13,7 +13,8 @@ var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const SECRECT_KEY = require('../config/conf').sessionSECRECT;
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('login page');
+  // res.send('login page');
+  res.render('index.html');
 });
 
 
@@ -41,8 +42,7 @@ router.post('/login',function(req, res, next){
           message: 'Could not verify credentials'
         });
       }
-      else{
-        
+      else{        
       req.login(user,function(err){
         if(err) {
             return res.status(400).json({
@@ -84,9 +84,9 @@ router.post('/verifyusername',function(req,res,next){
 });
 
 //logout
-router.post('/logout',function(req, res, next){
+router.get('/logout',function(req, res, next){
   req.logOut();
-  res.redirect('/');
+  res.json({success:"successfully log out"});
 });
 
 module.exports = router;

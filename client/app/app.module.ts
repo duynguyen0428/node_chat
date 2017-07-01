@@ -1,3 +1,5 @@
+import { SignUpSignIn } from './services/auth.service';
+import { AuthGuardService } from './services/auth.guard.service';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -14,7 +16,7 @@ import { AppComponent } from './app.component';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
@@ -22,6 +24,7 @@ import { AppComponent } from './app.component';
     LoginComponent,
     RegisterComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers:[AuthGuardService,SignUpSignIn]
 })
 export class AppModule { }

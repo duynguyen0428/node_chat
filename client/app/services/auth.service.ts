@@ -9,26 +9,23 @@ import 'rxjs/add/operator/map';
 export class SignUpSignIn implements OnInit {
     // private loginURL = '/users/login';
     // private registerURL = '/users/register';
-        private loginURL = '/users/login';
-        private registerURL = '/users/register';
-        private usernameAVARUL = '/users/verifyusername';
-        private emailAVARUL = '/users/verifyemail';
+    private loginURL = '/users/login';
+    private registerURL = '/users/register';
+    private usernameAVARUL = '/users/verifyusername';
+    private emailAVARUL = '/users/verifyemail';
+    private logOutURL = '/users/logout';
+    public isUserLoggedIn : Observable<boolean>;
     constructor(
         private _http: Http,
     ) { }
 
-    ngOnInit() {; 
+    ngOnInit() {
     }
 
-    login(email:string,password:string) {
-               
-        let user ={
-            email : email,
-            password:password
-        }        
+    login(user:User) { 
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        this._http.post(this.loginURL, user, options)
+        return this._http.post(this.loginURL, user, options)
             .map(res => res.json());
     }
 
@@ -57,6 +54,15 @@ export class SignUpSignIn implements OnInit {
         let options = new RequestOptions({ headers: headers });
         return this._http.post(this.emailAVARUL,user, options)
             .map(res   => res.json());
+    }
+
+
+    logout(){
+        localStorage.removeItem('currentUser');        
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.get(this.logOutURL)
+            .map(res   => res.json()).subscribe(res=>{console.log(res)});
     }
     // private handleError(error: Response | any) {
     //     // In a real world app, you might use a remote logging infrastructure

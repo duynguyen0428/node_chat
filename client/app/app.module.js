@@ -6,6 +6,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var auth_service_1 = require("./services/auth.service");
+var auth_guard_service_1 = require("./services/auth.guard.service");
 var home_component_1 = require("./components/home/home.component");
 var register_component_1 = require("./components/register/register.component");
 var login_component_1 = require("./components/login/login.component");
@@ -27,7 +29,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
-            app_routing_1.AppRoutingModule
+            app_routing_1.AppRoutingModule,
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -35,7 +37,8 @@ AppModule = __decorate([
             login_component_1.LoginComponent,
             register_component_1.RegisterComponent
         ],
-        bootstrap: [app_component_1.AppComponent]
+        bootstrap: [app_component_1.AppComponent],
+        providers: [auth_guard_service_1.AuthGuardService, auth_service_1.SignUpSignIn]
     })
 ], AppModule);
 exports.AppModule = AppModule;

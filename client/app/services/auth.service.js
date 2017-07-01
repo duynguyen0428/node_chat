@@ -22,18 +22,14 @@ var SignUpSignIn = (function () {
         this.registerURL = '/users/register';
         this.usernameAVARUL = '/users/verifyusername';
         this.emailAVARUL = '/users/verifyemail';
+        this.logOutURL = '/users/logout';
     }
     SignUpSignIn.prototype.ngOnInit = function () {
-        ;
     };
-    SignUpSignIn.prototype.login = function (email, password) {
-        var user = {
-            email: email,
-            password: password
-        };
+    SignUpSignIn.prototype.login = function (user) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        this._http.post(this.loginURL, user, options)
+        return this._http.post(this.loginURL, user, options)
             .map(function (res) { return res.json(); });
     };
     SignUpSignIn.prototype.signup = function (user) {
@@ -59,6 +55,13 @@ var SignUpSignIn = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         return this._http.post(this.emailAVARUL, user, options)
             .map(function (res) { return res.json(); });
+    };
+    SignUpSignIn.prototype.logout = function () {
+        localStorage.removeItem('currentUser');
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this._http.get(this.logOutURL)
+            .map(function (res) { return res.json(); }).subscribe(function (res) { console.log(res); });
     };
     return SignUpSignIn;
 }());

@@ -9,13 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var auth_service_1 = require("./../../services/auth.service");
 var core_1 = require("@angular/core");
 var LoginComponent = (function () {
-    function LoginComponent(_loginService, _formBuilder) {
+    function LoginComponent(_loginService, _formBuilder, _router) {
         this._loginService = _loginService;
         this._formBuilder = _formBuilder;
+        this._router = _router;
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.loginForm = this._formBuilder.group({
@@ -26,8 +28,16 @@ var LoginComponent = (function () {
             password: ['', [forms_1.Validators.required]]
         });
     };
-    LoginComponent.prototype.login = function (email, password) {
-        this._loginService.login(email, password);
+    LoginComponent.prototype.login = function (model) {
+        this._loginService.login(model)
+            .subscribe(function (res) {
+            if (res.user) {
+                localStorage.setItem('currentUser', JSON.stringify(res.user));
+            }
+        });
+        this.loginForm.controls.email.value = '';
+        this.loginForm.controls.password.value = '';
+        this._router.navigate(['home']);
     };
     return LoginComponent;
 }());
@@ -39,7 +49,8 @@ LoginComponent = __decorate([
         providers: []
     }),
     __metadata("design:paramtypes", [auth_service_1.SignUpSignIn,
-        forms_1.FormBuilder])
+        forms_1.FormBuilder,
+        router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

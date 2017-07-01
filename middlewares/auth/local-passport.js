@@ -1,15 +1,14 @@
 module.exports.initialize = function(req,res,done) {
     var path = require('path');
-    var passport = require('passport');
     var passportLocal = require('passport-local');    
     var Users = require(path.join(__dirname,'../../models/users')).Users;
-
+    var passport = require('passport');
     passport.use(new passportLocal.Strategy({
         usernameField: 'email'
-    }, function(email, password, next) {
+    }, function(email, password, done) {
         Users.findOne({email:email}, function(err, user) {
             if (err) {
-                return next(err);
+                return done(err);
             }
 
             user.comparePassword(password,function(err,isMatched){

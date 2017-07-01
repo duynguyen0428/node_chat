@@ -9,6 +9,14 @@ module.exports = function (app, express) {
     var session = require('express-session');
     var sessionStore = require('connect-mongo')(session);
 
+
+    var passport = require('passport');
+    passport.initialize();
+
+    var localLogin = require('../auth/local-passport');
+    localLogin.initialize(passport);
+
+
     // app.use(logger('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));

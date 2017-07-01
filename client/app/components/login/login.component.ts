@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SignUpSignIn } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-
+import {User} from './../../services/user'
 @Component({
   moduleId: module.id,
   selector: 'login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit{
   public loginForm : FormGroup;
   constructor(
     private _loginService : SignUpSignIn,
-    private _formBuilder : FormBuilder) {
+    private _formBuilder : FormBuilder,
+    private _router: Router) {
 
   }
 
@@ -26,7 +28,16 @@ export class LoginComponent implements OnInit{
     });
   }
 
-  login(email: string, password: string) {
-    this._loginService.login(email, password);
+  login(model : User) {
+    this._loginService.login(model)
+    .subscribe(res =>{
+      if(res.user){
+        localStorage.setItem('currentUser', JSON.stringify(res.user));
+      }  
+    });
+    this.loginForm.controls.email.value = '';
+    this.loginForm.controls.password.value = '';
+
+    this._router.navigate(['home']);    
   }
 }
