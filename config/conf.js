@@ -3,4 +3,6 @@ module.exports = {
     devDBURI : 'localhost:27017/node_chat',
     sessionSECRECT : "I'm not going to tell you this",
     sessionSTOREURL : 'mongodb://localhost/node_chat',
+    sessionSTOREURLONLINE : 'mongodb://localhost/node_chat',
+    
 }
