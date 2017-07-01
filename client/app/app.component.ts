@@ -1,5 +1,5 @@
 import { FormBuilder } from '@angular/forms';
-import { SignUpSignIn } from './services/signup-signin.service';
+import { SignUpSignIn } from './services/auth.service';
 import { Component } from '@angular/core';
 
 @Component({

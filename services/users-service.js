@@ -14,9 +14,38 @@ module.exports.register = function(username,email,password,next){
     newUser.save(function(err){
         if(err){
             next(err);
+        }else{
+            next(null);
         }
-        next(null);
-    })
+    });
+};
+
+module.exports.findUserByUserName = function(username,next){
+    Users.findOne({username:username},function(err,user){
+        if(err){
+            next(err);
+        }else{
+            if(!user){
+                next(null,null);
+            }else{
+                next(null,user);
+            }
+        }
+    });
+};
+
+module.exports.findUserByEmail = function(email,next){
+    Users.findOne({email:email},function(err,user){
+        if(err){
+            next(err);
+        }else{
+            if(!user){
+                next(null,null);
+            }else{
+                next(null,user);
+            }
+        }
+    });
 };
 
 //

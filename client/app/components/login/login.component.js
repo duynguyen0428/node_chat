@@ -9,12 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var signup_signin_service_1 = require("./../../services/signup-signin.service");
+var forms_1 = require("@angular/forms");
+var auth_service_1 = require("./../../services/auth.service");
 var core_1 = require("@angular/core");
 var LoginComponent = (function () {
-    function LoginComponent(_loginService) {
+    function LoginComponent(_loginService, _formBuilder) {
         this._loginService = _loginService;
+        this._formBuilder = _formBuilder;
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        this.loginForm = this._formBuilder.group({
+            email: ['', [
+                    forms_1.Validators.required,
+                    forms_1.Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")
+                ]],
+            password: ['', [forms_1.Validators.required]]
+        });
+    };
     LoginComponent.prototype.login = function (email, password) {
         this._loginService.login(email, password);
     };
@@ -27,7 +38,8 @@ LoginComponent = __decorate([
         templateUrl: 'login.component.html',
         providers: []
     }),
-    __metadata("design:paramtypes", [signup_signin_service_1.SignUpSignIn])
+    __metadata("design:paramtypes", [auth_service_1.SignUpSignIn,
+        forms_1.FormBuilder])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

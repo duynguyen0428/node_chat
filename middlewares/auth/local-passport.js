@@ -1,5 +1,4 @@
-'use strict';
-module.exports.initialize = function() {
+module.exports.initialize = function(req,res,done) {
     var path = require('path');
     var passport = require('passport');
     var passportLocal = require('passport-local');    
@@ -19,9 +18,9 @@ module.exports.initialize = function() {
                     var error = new Error('Incorrect email or password');
                     error.name = 'IncorrectCredentialsError';
                     return done(error);
+                }else{
+                    return done(null, user);
                 }
-
-                return next(null, user);
             });
 
         });

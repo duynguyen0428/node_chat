@@ -24,9 +24,10 @@ router.post('/register', function(req, res, next) {
     var password = req.body.password;
     userService.register(username,email,password,function(err){
         if(err){
-          res.status(400).json(err);
+          return res.status(400).json(err);
+        }else{
+          return res.status(201).json({success:"successfully create user"});
         }
-        res.status(201).json({success:"successfully create user"});
     });
 
 });
@@ -58,6 +59,28 @@ router.post('/login',function(req, res, next){
         });
       });
     }})(req,res,next);
+});
+
+router.post('/verifyemail',function(req,res,next){
+  var email = req.body.email;
+  userService.findUserByEmail(email,function(err,user){
+    if(err){
+        res.status(401).json({error:"Error"});
+    }else{
+        res.json(user);
+    }
+  });
+});
+
+router.post('/verifyusername',function(req,res,next){
+  var username = req.body.username;
+  userService.findUserByUserName(username,function(err,user){
+    if(err){
+        res.status(401).json({error:"Error"});
+    }else{
+        res.json(user);
+    }
+  });
 });
 
 //logout

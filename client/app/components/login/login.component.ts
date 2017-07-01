@@ -1,5 +1,6 @@
-import { SignUpSignIn } from './../../services/signup-signin.service';
-import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SignUpSignIn } from './../../services/auth.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -8,9 +9,21 @@ import { Component } from '@angular/core';
   providers: []
 })
 
-export class LoginComponent {
-  constructor(private _loginService : SignUpSignIn) {
+export class LoginComponent implements OnInit{
+  public loginForm : FormGroup;
+  constructor(
+    private _loginService : SignUpSignIn,
+    private _formBuilder : FormBuilder) {
 
+  }
+
+  ngOnInit(){
+    this.loginForm = this._formBuilder.group({
+      email : ['',[
+        Validators.required,
+        Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")]],
+      password : ['',[Validators.required]]
+    });
   }
 
   login(email: string, password: string) {

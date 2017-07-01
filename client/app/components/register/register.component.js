@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = require("@angular/router");
-var signup_signin_service_1 = require("./../../services/signup-signin.service");
+var auth_service_1 = require("./../../services/auth.service");
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var RegisterComponent = (function () {
@@ -20,19 +20,66 @@ var RegisterComponent = (function () {
         this._formBuilder = _formBuilder;
     }
     RegisterComponent.prototype.ngOnInit = function () {
+        var _this = this;
         //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
         //Add 'implements OnInit' to the class.
+        this.isEmailAvai = true;
+        this.isUserNameAvai = true;
         this.registerForm = this._formBuilder.group({
-            username: ['', forms_1.Validators.required],
-            email: ['', forms_1.Validators.required],
+            username: ['', [forms_1.Validators.required],
+                this.checkUserNameAV.bind(this)],
+            email: ['', [forms_1.Validators.required,
+                    forms_1.Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")],
+            ],
             password: ['', [forms_1.Validators.required, forms_1.Validators.minLength(6)]]
         });
+        this.registerForm.controls.email.valueChanges
+            .subscribe(function (value) {
+            _this._authservice.emailUniqe(value)
+                .subscribe(function (res) {
+                console.log(res);
+                if (!res) {
+                    _this.isEmailAvai = true;
+                }
+                else {
+                    _this.isEmailAvai = false;
+                }
+            });
+        });
+        this.registerForm.controls.username.valueChanges
+            .subscribe(function (value) {
+            setTimeout(function () {
+                return _this._authservice.userAvaibilityCheck(value)
+                    .subscribe(function (res) {
+                    if (!res) {
+                        _this.isUserNameAvai = true;
+                    }
+                    else {
+                        _this.isUserNameAvai = false;
+                    }
+                });
+            }, 1000);
+        });
+    };
+    RegisterComponent.prototype.checkUserNameAV = function (control) {
+        var _this = this;
+        setTimeout(function () {
+            return _this._authservice.userAvaibilityCheck(control.value)
+                .subscribe(function (res) {
+                if (!res) {
+                    _this.isUserNameAvai = true;
+                }
+                else {
+                    _this.isUserNameAvai = false;
+                }
+            });
+        }, 1000);
     };
     RegisterComponent.prototype.signup = function (model) {
         // console.log(model);
         this._authservice.signup(model)
             .subscribe(function (res) { return console.log(res); });
-        this._router.navigate(['/']);
+        this._router.navigate(['/login']);
     };
     ;
     return RegisterComponent;
@@ -44,7 +91,7 @@ RegisterComponent = __decorate([
         templateUrl: 'register.component.html',
         providers: []
     }),
-    __metadata("design:paramtypes", [signup_signin_service_1.SignUpSignIn,
+    __metadata("design:paramtypes", [auth_service_1.SignUpSignIn,
         router_1.Router,
         forms_1.FormBuilder])
 ], RegisterComponent);
