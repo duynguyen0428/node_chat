@@ -11,18 +11,25 @@ module.exports.addGuest = function(fname,lname,relationship, side,numberOfattend
 });
 
     newGuest.save(function(err){
+        console.log(err);
         if(err) return next(err);
         next();
     });
 };
 
 module.exports.removeGuest = function(fname,lname,relationship,side,next){
-    Guests.find({first_name:fname,last_name:lname,relationship:relationship,side:side},function(err,guest){
-        if(err) next(err);
-        Guests.findByIdAndRemove({_id:guest._id},select).exec(function(err,guest){
+    Guests.remove({
+        first_name:fname,
+        last_name:lname,
+        relationship:relationship,
+        side:side},
+        function(err,guest){
             if(err) next(err);
-            next(null,guest);
-        });
+            next(null,guest);        
+        // Guests.remove({_id:guest._id},select).exec(function(err,guest){
+        //     if(err) next(err);
+        //     next(null,guest);
+        // });
     });
 };
 

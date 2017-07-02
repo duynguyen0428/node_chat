@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col col-sm9 col-lg-9">  
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Guest First Name</th>
+                        <th>Guest Last Name</th>
+                        <th>Relationship</th>
+                        <th>Side</th>
+                        <th>Number Of Attendant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let guest of guests">
+                        <td>{{guest.first_name}}</td>
+                        <td>{{guest.last_name}}</td>
+                        <td>{{guest.relationship}}</td>
+                        <td>{{guest.side}}</td>
+                        <td>{{guest.numberOfAttendants}}</td>
+                        <td><button class="btn btn-primary" (click)="removeGuest(guest)"> Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col col-sm-3 col-lg-3">
+        <h2>Add New Guest</h2>
+        <form [formGroup]="addGuestForm" class="form" (ngSubmit)="addGuest(addGuestForm.value)">
+            <label for="firstname">First Name</label>
+            <input class="form-control" type="text" id="firstname" formControlName="fname" placeholder="New Guest First Name">
+            <label for="lastname">Last Name</label>
+            <input class="form-control" type="text" id="lastname" formControlName="lname" placeholder="New Guest Last Name">
+            <label for="relationship">Relationship</label>
+            <input class="form-control" type="text" id="relationship" formControlName="relationship" placeholder="Relationship">
+            <label for="numberOfAttend">Number Of Attendants</label>
+            <input class="form-control" type="text" id="numberOfAttend" formControlName="NOA" placeholder="Number of attendants">
+            <label for="side">Side</label>
+            <input class="form-control" type="text" id="side" formControlName="side" placeholder="side Duy/Diep">
+            <br>
+            <button class="btn btn-primary">Add New Guest</button>
+        </form>
+    </div>
+</div>

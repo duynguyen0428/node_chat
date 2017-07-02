@@ -10,6 +10,6 @@ module.exports =  function(app){
 
     app.use('/', index);
     app.use('/users', users);
-    app.use('/guests',loginRequired,guests);
+    app.use('/guests',guests);
 
 };

@@ -1,3 +1,4 @@
+import { GuestsComponent } from './components/guests/guests.component';
 import { SignUpSignIn } from './services/auth.service';
 import { AuthGuardService } from './services/auth.guard.service';
 import { HomeComponent } from './components/home/home.component';
@@ -22,7 +23,8 @@ import { AppComponent } from './app.component';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    GuestsComponent
   ],
   bootstrap: [AppComponent],
   providers:[AuthGuardService,SignUpSignIn]

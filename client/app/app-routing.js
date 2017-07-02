@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var guests_component_1 = require("./components/guests/guests.component");
 var auth_guard_service_1 = require("./services/auth.guard.service");
 var home_component_1 = require("./components/home/home.component");
 var core_1 = require("@angular/core");
@@ -13,14 +14,29 @@ var router_1 = require("@angular/router");
 var login_component_1 = require("./components/login/login.component");
 var register_component_1 = require("./components/register/register.component");
 var routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+    },
     {
         path: 'home',
         component: home_component_1.HomeComponent,
         canActivate: [auth_guard_service_1.AuthGuardService]
     },
-    { path: 'login', component: login_component_1.LoginComponent },
-    { path: 'register', component: register_component_1.RegisterComponent },
+    {
+        path: 'guests',
+        component: guests_component_1.GuestsComponent,
+        canActivate: [auth_guard_service_1.AuthGuardService]
+    },
+    {
+        path: 'login',
+        component: login_component_1.LoginComponent
+    },
+    {
+        path: 'register',
+        component: register_component_1.RegisterComponent
+    },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

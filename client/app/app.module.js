@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var guests_component_1 = require("./components/guests/guests.component");
 var auth_service_1 = require("./services/auth.service");
 var auth_guard_service_1 = require("./services/auth.guard.service");
 var home_component_1 = require("./components/home/home.component");
@@ -35,7 +36,8 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             home_component_1.HomeComponent,
             login_component_1.LoginComponent,
-            register_component_1.RegisterComponent
+            register_component_1.RegisterComponent,
+            guests_component_1.GuestsComponent
         ],
         bootstrap: [app_component_1.AppComponent],
         providers: [auth_guard_service_1.AuthGuardService, auth_service_1.SignUpSignIn]

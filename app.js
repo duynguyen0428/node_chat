@@ -55,8 +55,8 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     store: new sessionStore({
-        url : 'mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat'
-        // url: require('./config/conf').sessionSTOREURL,
+        // url : 'mongodb://duynguyen0428:cuongduy0428@ds135812.mlab.com:35812/node_chat'
+        url: require('./config/conf').sessionSTOREURL,
     })
 }));
 
